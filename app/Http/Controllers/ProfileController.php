@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Intervention\Image\Facades\Image;
+use App\Notifications\FollowNotification;
 use App\Profile;
 
 
@@ -59,7 +60,28 @@ class ProfileController extends Controller
 
         auth()->user()->toggleFollow($user);
 
+        if( auth()->user()->isFollowing($user) ){
+            $user->notify(new FollowNotification(auth()->user()));
+         }
+
         return back();
+    }
+
+
+    public function explore(User $user)
+    {
+        $users=User::all();
+        $tweets=$user->tweets;
+
+        return view('explore',compact('users'));
+    }
+   
+
+    public function notifications(User $user)
+    {
+        $notifications=auth()->user()->notifications;
+
+        return view('notifications',compact('notifications'));
     }
 
 
@@ -73,14 +95,5 @@ class ProfileController extends Controller
              ]);
     }
 
-
-    public function explore(User $user)
-    {
-        $users=User::all();
-        $tweets=$user->tweets;
-
-        return view('explore',compact('users','tweets'));
-    }
-   
 
 }

@@ -6,7 +6,6 @@
                 <li class="flex items-center my-3 px-4 py-1 hover:bg-white rounded-r-full rounded-l-full transition-all duration-200 ease-out motion-reduce:transition-none cursor-pointer">
                     <img src="{{$user->photo()}}" class="w-8 h-8 rounded-full">
                     <h1 class="ml-2">{{ Str::limit($user->fName.' '.$user->lName,12) }}</h1>
-                    <img src="/images/online.png" class="w-2 ml-3">
                 </li>
             </a>
        @endforeach

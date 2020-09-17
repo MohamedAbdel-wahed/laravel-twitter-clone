@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Notifications\LikeNotification;
 use App\Tweet;
 
 
@@ -14,6 +15,11 @@ class TweetController extends Controller
        $tweets=auth()->user()->timeline();
        
         return view('tweets.index',compact('tweets'));
+    }
+
+    public function show(Tweet $tweet)
+    { 
+        return view('tweets.show',compact('tweet'));
     }
 
 
@@ -34,6 +40,10 @@ class TweetController extends Controller
     public function like(Tweet $tweet)
     {
         $tweet->likeToggle(auth()->user());
+       if( $tweet->isLikedBy(auth()->user()) ){
+           $tweet->user->notify(new LikeNotification(auth()->user(), $tweet));
+        }
+        
     }
 
 }

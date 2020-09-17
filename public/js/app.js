@@ -38125,13 +38125,13 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
-  components: {
-    Follow: _components_Follow_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    Like: _components_Like_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-    ShowLikes: _components_ShowLikes_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
-  },
   data: {
     showFollowersModal: false
+  },
+  components: {
+    Like: _components_Like_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    Follow: _components_Follow_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    ShowLikes: _components_ShowLikes_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   }
 });
 
@@ -38166,9 +38166,11 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
-  key: "d4b1ce530f34e8073aa1",
-  cluster: "eu",
-  forceTLS: true
+  key: 'myKey',
+  wsHost: window.location.hostname,
+  wsPort: 6001,
+  forceTLS: false,
+  disableStats: true
 });
 
 /***/ }),
@@ -38387,7 +38389,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/mohamed/Desktop/laravel/twitter-clone/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/mohamed/Desktop/laravel/laravel-twitter-clone/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ })

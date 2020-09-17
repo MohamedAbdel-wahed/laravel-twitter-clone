@@ -6,7 +6,7 @@
 <ul class="font-bold text-gray-900 px-12 py-2 bg-gray-200 rounded-lg select-none">
     <li class="my-4 hover:text-blue-500 hover:text-xl transition-all duration-200 ease-out motion-reduce:transition-none">
         <i class="fas fa-home text-lg"></i>
-        <a href="{{ route('home') }}" class="ml-1">Home</a>
+        <a href="/tweets" class="ml-1">Home</a>
     </li>
     <li class="my-4 hover:text-blue-500 hover:text-xl transition-all duration-200 ease-out motion-reduce:transition-none">
         <i class="fas fa-user text-lg"></i>
@@ -14,7 +14,7 @@
     </li>
     <li class="my-4 hover:text-blue-500 hover:text-xl transition-all duration-200 ease-out motion-reduce:transition-none">
         <i class="fas fa-bell text-lg"></i>
-        <a href="#" class="ml-1">Notifications</a>
+        <a href="{{ route('notifications') }}" class="ml-1">Notifications</a>
     </li>
     <li class="my-4 hover:text-blue-500 hover:text-xl transition-all duration-200 ease-out motion-reduce:transition-none">
         <i class="fas fa-eye text-lg"></i>

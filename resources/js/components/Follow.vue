@@ -5,25 +5,27 @@
 </template>
 
 <script>
-    export default {
-        props:['user','follow_status'],
-        name:'Follow',
-        data(){
-            return{
-              status:this.follow_status
-            }
-        },
-        methods:{
-            follow(){
-                axios.post(`/profile/${this.user.id}/follow`)
-                     .then(res=> this.status = !this.status)
-                     .catch(err=>console.log(err))
-            }
-        },
-        computed:{
-            btn_text(){
-                return this.status ? 'unfollow':'follow'
-            }
+export default {
+    props:['user','follow_status','notifications'],
+    name:'Follow',
+    data(){
+        return{
+            status:this.follow_status
         }
+    },
+    methods:{
+        follow(){
+            axios.post(`/profile/${this.user.id}/follow`)
+                    .then(res=> this.status = !this.status)
+                    .catch(err=>console.log(err))
+        }
+    },
+    computed:{
+        btn_text(){
+            return this.status ? 'unfollow':'follow'
+        },
     }
+
+
+}
 </script>

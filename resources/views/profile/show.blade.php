@@ -8,7 +8,7 @@
     </div>
      <div class="flex-1 mt-20 mx-6 px-4 rounded-lg">
         <div class="w-full h-72">
-            <img src="/images/tweet.jpeg" class="w-full h-full rounded-lg select-none"> 
+            <img src="{{ $user->profileImg ? '/storage/'.$user->profileImg : '/images/default-profile.jpg'}}" class="w-full h-full rounded-lg select-none"> 
             <div class="absolute select-none">
                 <img src="{{$user->photo()}}" class="transform -translate-y-20 translate-x-10 w-7/12 h-40 rounded-full"> 
             </div>
@@ -17,7 +17,7 @@
                     <h1 class="ml-1 text-lg font-bold text-gray-800">{{ $user->fName.' '.$user->lName }}</h1>
                     <p class="text-xs text-gray-600 ml-2">Joined {{ $user->created_at->diffForHumans() }}</p>
                     <p @click="showFollowersModal=!showFollowersModal" class="text-sm mt-2 text-gray-800 ml-2 text-semibold no-underline hover:underline cursor-pointer" title="view followers">
-                        {{ $user->followers()->count() }} <strong>Followers</strong>
+                        {{ count($user->followers()) > 0 ? count($user->followers()) : ''  }} <strong>Followers</strong>
                     </p>
                     <button v-if="showFollowersModal" @click="showFollowersModal=false" class="w-full h-full fixed inset-0 bg-gray-800 opacity-50 cursor-default z-10"></button>
                     <div v-if="showFollowersModal" class="w-96 h-96 fixed top-0 mt-24 bg-white border border-gray-600 rounded-lg z-10 overflow-hidden">
@@ -52,7 +52,7 @@
                     @unless($user->is(Auth::user()))
                         <form class="mr-2 select-none">
                             @csrf
-                            <Follow :user="{{ $user }}" follow_Status="{{ $follow_status }}" />
+                            <Follow :user="{{ $user }}" follow_Status="{{ $follow_status }}" :notifications="{{ Auth::user()->notifications }}"/>/>
                         </form>
                     @endunless
                 </div>

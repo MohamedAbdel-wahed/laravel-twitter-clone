@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 
 class FollowNotification extends Notification
 {
@@ -32,4 +33,7 @@ class FollowNotification extends Notification
             'username'=>$this->user->fName.' '.$this->user->lName
         ];
     }
+
+
+
 }

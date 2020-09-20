@@ -10,6 +10,10 @@ use App\Like;
 class Tweet extends Model
 {
     protected $guarded=[];
+        
+    protected $casts = [
+        'image' => 'array'
+    ];
 
     public function user()
     {
@@ -69,6 +73,5 @@ class Tweet extends Model
 
         return User::whereIn('id',$user_ids)->get();
     }
-
 
 }

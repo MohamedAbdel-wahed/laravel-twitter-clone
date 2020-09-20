@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\User;
 use Intervention\Image\Facades\Image;
 use App\Notifications\FollowNotification;
-use App\Profile;
 
 
 
@@ -16,36 +15,30 @@ class ProfileController extends Controller
     {
         $tweets=$user->tweets()->latest()->get();
         $follow_status=auth()->user()->isFollowing($user);
-        return view('profile.show', compact('tweets','user','follow_status'));
+        $newNotifications=auth()->user()->unreadNotifications;
+
+        return view('profile.show', compact('tweets','user','follow_status','newNotifications'));
     }
 
 
     public function edit(User $user)
     {
         abort_unless( $user->is(auth()->user()), 403 );
+        $newNotifications=auth()->user()->unreadNotifications;
 
-       return view('profile.edit', compact('user'));
+       return view('profile.edit', compact('user','newNotifications'));
     }
 
 
     public function update(User $user)
     {
-        if(request('photo')){
-            if($user->photo){
-                // delete the old photo if the user has updated the photo
-                $public_path=public_path('storage/'.$user->photo);
-                unlink($public_path);
-            }
-
-            $imgPath=request('photo')->store('profile','public');
-            $newImage=['photo'=>$imgPath];
-            $image=Image::make(public_path('storage/'.$imgPath))->fit(300,300);
-            $image->save();
-        }
+        $newPeronalImg=$this->manageImage($user->photo,request('photo'),'photo','personal');
+        $newProfileImg=$this->manageImage($user->profileImg,request('profileImg'),'profileImg','profile');
 
         $user->update(array_merge(
             $this->validatedData(),
-            $newImage ?? []
+            $newPeronalImg ?? [],
+            $newProfileImg ?? []
         ));
 
         return redirect(route('profile',$user->id));
@@ -72,16 +65,19 @@ class ProfileController extends Controller
     {
         $users=User::all();
         $tweets=$user->tweets;
+        $newNotifications=auth()->user()->unreadNotifications;
 
-        return view('explore',compact('users'));
+        return view('explore',compact('users','newNotifications'));
     }
    
 
     public function notifications(User $user)
     {
         $notifications=auth()->user()->notifications;
+        auth()->user()->unreadNotifications->markAsRead();
+        $newNotifications=[];
 
-        return view('notifications',compact('notifications'));
+        return view('notifications',compact('notifications','newNotifications'));
     }
 
 
@@ -92,7 +88,25 @@ class ProfileController extends Controller
                 'lName' => ['required', 'string','min:1', 'max:30'],
                 'description'=>['nullable','sometimes','string','max:120'],
                 'photo'=>['nullable','sometimes','file','image','mimes:jpg,jpeg','max:800'],
+                'profileImg'=>['nullable','sometimes','file','image','mimes:jpg,jpeg','max:800'],
              ]);
+    }
+
+
+    public function manageImage($user_image,$image,$imgName,$path)
+    {
+        if($image){
+            if($user_image){
+                // delete the old image if the user has updated the image
+                $dest=public_path('storage/'.$user_image);
+                unlink($dest);
+            }
+
+            $imgPath=$image->store($path,'public');
+            $newImage=[$imgName=>$imgPath];
+
+          return  $newImage;
+        }
     }
 
 

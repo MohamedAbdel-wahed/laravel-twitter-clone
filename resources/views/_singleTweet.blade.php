@@ -11,12 +11,24 @@
         </div>
     </div>
     <div class="mt-4 px-12">
-        <p class="text-sm text-gray-700">{{ $tweet->body }}</p>
+        <p class="text-sm text-gray-700 ml-2">{{ $tweet->body }}</p>
         @if($tweet->image)
-            <img src="/images/tweet.jpeg" class="w-9/12 mt-2 rounded-md">
+             <div class="flex flex-wrap rounded-lg">
+                 @foreach ($tweet->image as $img )
+                     @if ($loop->index<2)
+                        <img src="/storage/{{ $img }}" class="w-40 h-40 ml-2 mt-2 rounded-md">
+                     @endif
+                 @endforeach
+                 @if (count($tweet->image) > 2)
+                   <div class="relative w-40 h-40 ml-2 mt-2 rounded-md">
+                        <img src="/storage/{{ $tweet->image[2] }}" class="w-full h-full inline-block rounded-md">
+                        <a href="{{ route('tweets.show',$tweet->id) }}" class="absolute top-0 left-0 h-full w-full px-2 pt-6 bg-gray-700 opacity-50 hover:opacity-75 rounded-md font-extrabold text-2xl tracking-wide text-white text-center transition-all duration-300 ease-out cursor-pointer hover:underline">Show <br/> More...</a>
+                    </div>
+                 @endif
+             </div>
         @endif
     </div>
-    <div class="mt-4 px-12">
+    <div class="mt-6 px-12 ml-2">
         <form action="{{ route('tweets.like',$tweet->id) }}" method="POST">
             @csrf 
             <Like tweet_id="{{ $tweet->id }}" like_status="{{ $tweet->isLikedBy(Auth::user()) }}"/>

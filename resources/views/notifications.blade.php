@@ -11,7 +11,7 @@
         <h1 class="px-6 py-2 text-2xl font-bold text-gray-800">Notifications</h1>
         <ul class="mt-3 mb-6 px-6 w-full h-96 overflow-auto">
             @forelse($notifications as $key=>$notification)
-            <a href="{{ isset($tweet) ? route('tweets.show',$notifications[$key]->data['tweet']['id']) : route('profile',$notifications[$key]->data['user']['id'])}}">
+            <a href="{{ isset($notifications[$key]->data['tweet']) ? route('tweets.show',$notifications[$key]->data['tweet']['id']) : route('profile',$notifications[$key]->data['user']['id'])}}">
                 <li class="flex items-center my-1 py-3 px-4 font-semibold text-sm text-gray-900 bg-orange-200 hover:bg-orange-300 rounded-lg">
                     @if(isset($notifications[$key]->data['tweet']))
                         <i class="fas fa-heart text-red-700 text-lg"></i>
@@ -23,7 +23,7 @@
                         {{ $notification->type == 'App\Notifications\LikeNotification' ? 'liked your tweet' : 'started following you'}}
                    </span> 
                     @if(isset($notifications[$key]->data['tweet']))
-                      <span class="px-2 py-1 ml-2 text-sm text-black font-normal  bg-white rounded-sm">{{ $notifications[$key]->data['tweet']['body'] }}</span>
+                      <span class="px-2 py-1 ml-2 text-sm text-black font-normal  bg-blue-100 rounded-sm">{{ $notifications[$key]->data['tweet']['body'] }}</span>
                     @endif
                 </li>
             </a>
@@ -32,6 +32,7 @@
             @endforelse
         </ul>
     </div>
+
 
     <div class="w-1/6 mt-20">
         @include('_friends')

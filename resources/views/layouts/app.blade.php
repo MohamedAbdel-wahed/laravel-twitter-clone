@@ -44,7 +44,7 @@
             <div class="container mx-auto px-6 md:px-0">
                 <div class="flex items-center justify-center">
                     <div class="ml-20">
-                        <a href="{{ url('/') }}" class="text-lg font-semibold text-white no-underline">
+                        <a href="{{ url('/tweets') }}" class="text-lg font-semibold text-white no-underline">
                             <div class="flex items-center">
                                 <i class="fab fa-twitter text-white text-4xl"></i>
                                 <span class="ml-1">twitter clone</span>

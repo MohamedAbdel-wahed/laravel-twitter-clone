@@ -36,7 +36,14 @@
                 @enderror
             </div>
             <div class="flex flex-col mb-6 ">
-                <label for="photo" class="font-semibold text-gray-700 select-none">Profile Image(Optional):</label>
+                <label for="profileImg" class="font-semibold text-gray-700 select-none">Profile Image(Optional):</label>
+                <input type="file" name="profileImg" class="px-4 py-2 border border-gray-300 rounded-lg text-blue-500 focus:outline-none focus:bg-blue-200 cursor-pointer">
+                @error('profileImg')
+                    <p class="my-1 text-red-600 text-xs font-bold">{{ $message }}</p>
+                @enderror
+            </div>
+            <div class="flex flex-col mb-6 ">
+                <label for="photo" class="font-semibold text-gray-700 select-none">Personal Image(Optional):</label>
                 <input type="file" name="photo" class="px-4 py-2 border border-gray-300 rounded-lg text-blue-500 focus:outline-none focus:bg-blue-200 cursor-pointer">
                 @error('photo')
                     <p class="my-1 text-red-600 text-xs font-bold">{{ $message }}</p>

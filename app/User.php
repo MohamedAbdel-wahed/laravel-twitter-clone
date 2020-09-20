@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\DB;
 use App\Tweet;
-use App\Like;
+
 
 class User extends Authenticatable
 {
@@ -51,13 +51,13 @@ class User extends Authenticatable
 
      public function following()
      {
-        return $this->belongsToMany(User::class,'profile_user','user_id','profile_id')->withTimestamps();
+        return $this->belongsToMany(User::class,'follows','user_id','following_user_id')->withTimestamps();
      }
  
      
      public function isFollowing(User $user)
      {
-         return $this->following()->where('profile_id',$user->id)->exists();
+         return $this->following()->where('following_user_id',$user->id)->exists();
      } 
  
  
@@ -86,7 +86,7 @@ class User extends Authenticatable
 
       public function followers()
      {
-         $follower_ids= DB::table('profile_user')->where('profile_id','=',$this->id)->get()->pluck('user_id');
+         $follower_ids= DB::table('follows')->where('following_user_id','=',$this->id)->get()->pluck('user_id');
         
         return DB::table('users')->whereIn('id',$follower_ids)->get();
      }

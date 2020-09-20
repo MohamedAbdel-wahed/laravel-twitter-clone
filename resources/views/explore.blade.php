@@ -24,7 +24,7 @@
                                 <p class="ml-2 text-xs text-gray-600">{{ Auth::user()->followers()->pluck('id')->contains($user->id) ? 'following you' : ''}}</p>
                             </div>
                         </div>
-                        <Follow :user="{{ $user }}" follow_Status="{{ Auth::user()->isFollowing($user) }}" />
+                        <Follow :user="{{ $user }}" follow_Status="{{ Auth::user()->isFollowing($user) }}" :notifications="{{ Auth::user()->notifications }}"/>
                     </div>
                 @endunless
             @empty

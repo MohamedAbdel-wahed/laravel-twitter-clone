@@ -19,12 +19,16 @@
                 </div>
             </div>
             <div class="mt-4 px-12">
-                <p class="text-sm text-gray-700">{{ $tweet->body }}</p>
+                <p class="text-sm text-gray-700 ml-2">{{ $tweet->body }}</p>
                 @if($tweet->image)
-                    <img src="/images/tweet.jpeg" class="w-9/12 mt-2 rounded-md">
+                    <div class="flex flex-wrap rounded-lg">
+                        @foreach ($tweet->image as $img )
+                            <img src="/storage/{{ $img }}" class="w-40 h-40 ml-2 mt-2 rounded-md">
+                        @endforeach
+                    </div>
                 @endif
             </div>
-            <div class="mt-4 px-12">
+            <div class="mt-6 ml-2 px-12">
                 <form action="{{ route('tweets.like',$tweet->id) }}" method="POST">
                     @csrf 
                     <Like tweet_id="{{ $tweet->id }}" like_status="{{ $tweet->isLikedBy(Auth::user()) }}"/>

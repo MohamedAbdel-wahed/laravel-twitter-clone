@@ -35,11 +35,15 @@ class TweetController extends Controller
         ]);
 
         $tweet_images=[];
-
+   
         if(request('image')){
-            foreach($data['image'] as $image){
-                    $imgPath=$image->store('tweets','public');
+            foreach($data['image'] as $key=>$file){
+                    $tmp_name=$_FILES['image']['tmp_name'][$key];
+                    $file_type=$_FILES['image']['type'][$key];
+                    $ext=explode('/',$file_type);
+                    $imgPath=uniqid('tweet.',true).'.'.strtolower(end($ext));
                     array_push($tweet_images,$imgPath);
+                    move_uploaded_file($tmp_name,public_path('uploads/tweets/'.$imgPath));
                 }
         }
 

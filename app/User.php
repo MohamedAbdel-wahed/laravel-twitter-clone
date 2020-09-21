@@ -5,7 +5,6 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\DB;
 use App\Tweet;
 
@@ -100,8 +99,6 @@ class User extends Authenticatable
         }
         else{
             $path='/images/default.png';
-            $image=Image::make(public_path($path))->fit(300,300);
-            $image->save();
         }
 
         return $path;

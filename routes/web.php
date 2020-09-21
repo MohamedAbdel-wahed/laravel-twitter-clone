@@ -4,6 +4,13 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 
+
+// to fix mixed content error
+if (App::environment('production')) {
+    URL::forceScheme('https');
+}
+
+
 Route::get('/',function(){
     return view('welcome');
 });

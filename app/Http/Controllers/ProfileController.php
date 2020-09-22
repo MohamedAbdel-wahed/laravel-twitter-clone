@@ -108,7 +108,7 @@ class ProfileController extends Controller
             $file_type=$_FILES[$imgName]['type'];
             $ext=explode('/',$file_type);
             $imgPath=uniqid($imgName,true).'.'.strtolower(end($ext));
-            move_uploaded_file($tmp_name, public_path('uploads/'.$path.'/'.$imgPath));
+            move_uploaded_file($tmp_name, public_path("uploads/$path/$imgPath"));
 
             $newImage=[$imgName=>$imgPath];
             

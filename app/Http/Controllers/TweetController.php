@@ -45,7 +45,7 @@ class TweetController extends Controller
                     $ext=explode('/',$file_type);
                     $imgPath=uniqid('tweet.',true).'.'.strtolower(end($ext));
                     array_push($tweet_images,$imgPath);
-                    move_uploaded_file($tmp_name, public_path("uploads/tweets/$imgPath"));
+                    move_uploaded_file($tmp_name, public_path('uploads/tweets/'.$imgPath));
                 }
         }
 

@@ -9,7 +9,7 @@
         <div class="my-3 py-4 px-3 rounded-lg border border-gray-200">
             <div class="flex">
                 <a href="{{ route('profile',$tweet->user->id) }}">
-                    <img src="{{ $tweet->user->photo() }}" class="w-10 h-10 rounded-full select-none" title="view profile">
+                    <img src="{{ asset($tweet->user->photo()) }}" class="w-10 h-10 rounded-full select-none" title="view profile">
                 </a>
                 <div class="select-none">
                     <h1 class="ml-2  font-semibold text-gray-800">
@@ -23,7 +23,7 @@
                 @if($tweet->image)
                     <div class="flex flex-wrap rounded-lg">
                         @foreach ($tweet->image as $img )
-                            <img src="/storage/{{ $img }}" class="w-40 h-40 ml-2 mt-2 rounded-md">
+                            <img src="{{ asset('uploads/tweets/'.$img) }}" class="w-40 h-40 ml-2 mt-2 rounded-md">
                         @endforeach
                     </div>
                 @endif
@@ -36,7 +36,7 @@
             </div>
             <div class="flex justify-end items-center mr-6">
                @foreach ($tweet->latest_likes() as $photo)
-                    <img src="{{ $photo ? '/storage/'.$photo : '/images/default.png' }}" class="w-6 h-6 rounded-full">
+                    <img src="{{ $photo ? asset('/uploads/personal/'.$photo) : '/images/default.png' }}" class="w-6 h-6 rounded-full">
                @endforeach
                <show-likes :num_of_likes="{{ $tweet->likes->count() }}" :users="{{ $tweet->users_liked_tweet() }}" ></show-likes>  
             </div>

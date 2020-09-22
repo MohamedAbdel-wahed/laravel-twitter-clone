@@ -16,7 +16,7 @@
                     @if(isset($notifications[$key]->data['tweet']))
                         <i class="fas fa-heart text-red-700 text-lg"></i>
                     @else 
-                         <img src="{{ $notifications[$key]->data['user']['photo'] ? '/storage/'.$notifications[$key]->data['user']['photo'] : '/images/default.png'  }}" class="w-6 h-6 rounded-full">
+                         <img src="{{ $notifications[$key]->data['user']['photo'] ? asset('/uploads/personal/'.$notifications[$key]->data['user']['photo']) : '/images/default.png'  }}" class="w-6 h-6 rounded-full">
                     @endif
                    <span class="ml-2">
                         {{  $notifications[$key]->data['username']  }} 

@@ -95,7 +95,7 @@ class User extends Authenticatable
      {
         $path='';
         if($this->photo){
-            $path='/storage/'.$this->photo; 
+            $path='uploads/personal/'.$this->photo; 
         }
         else{
             $path='/images/default.png';

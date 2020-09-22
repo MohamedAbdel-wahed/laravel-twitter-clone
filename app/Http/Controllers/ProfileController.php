@@ -30,12 +30,14 @@ class ProfileController extends Controller
 
     public function update(User $user)
     {
-        $newPeronalImg=$this->manageImage($user->photo,request('photo'),'photo','personal');
+        $data=$this->validatedData();
+
+        $newPersonalImg=$this->manageImage($user->photo,request('photo'),'photo','personal');
         $newProfileImg=$this->manageImage($user->profileImg,request('profileImg'),'profileImg','profile');
 
         $user->update(array_merge(
-            $this->validatedData(),
-            $newPeronalImg ?? [],
+            $data,
+            $newPersonalImg ?? [],
             $newProfileImg ?? []
         ));
 
@@ -85,24 +87,31 @@ class ProfileController extends Controller
                 'fName' => ['required', 'string','min:1', 'max:30'],
                 'lName' => ['required', 'string','min:1', 'max:30'],
                 'description'=>['nullable','sometimes','string','max:120'],
-                'photo'=>['nullable','sometimes','file','image','mimes:jpg,jpeg','max:800'],
-                'profileImg'=>['nullable','sometimes','file','image','mimes:jpg,jpeg','max:800'],
+                'photo'=>['nullable','sometimes','image','mimes:jpg,jpeg','max:800'],
+                'profileImg'=>['nullable','sometimes','image','mimes:jpg,jpeg','max:800'],
              ]);
     }
 
 
     public function manageImage($user_image,$image,$imgName,$path)
     {
+        // dd($user_image);
         if($image){
             if($user_image){
                 // delete the old image if the user has updated the image
-                $dest=public_path('storage/'.$user_image);
+                $dest=public_path('uploads/'.$path.'/'.$user_image);
                 unlink($dest);
             }
 
-            $imgPath=$image->store($path,'public');
-            $newImage=[$imgName=>$imgPath];
+            
+            $tmp_name=$_FILES[$imgName]['tmp_name'];
+            $file_type=$_FILES[$imgName]['type'];
+            $ext=explode('/',$file_type);
+            $imgPath=uniqid($imgName,true).'.'.strtolower(end($ext));
+            move_uploaded_file($tmp_name, public_path('uploads/'.$path.'/'.$imgPath));
 
+            $newImage=[$imgName=>$imgPath];
+            
           return  $newImage;
         }
     }

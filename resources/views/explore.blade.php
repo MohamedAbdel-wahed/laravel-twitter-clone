@@ -10,12 +10,12 @@
     <div class="flex-1 mt-32 mx-6 px-4 rounded-lg">
         <h1 class="mb-4 text-2xl font-bold text-gray-800">Explore & Follow New People</h1>
         <div class="py-2 px-4 border border-gray-400 rounded-lg">
-            @forelse($users as $user)
+            @foreach($users as $user)
                 @unless(Auth::user()->isFollowing($user) || Auth::user()->is($user))
                     <div class="my-3 py-3 px-20 flex justify-between {{ $loop->last ? '' : 'border-b' }} border-gray-300">
                         <div class="flex">
                             <a href="{{ route('profile',$user->id) }}" title="view profile">
-                                <img src="{{ $user->photo() }}" class="w-8 h-8 rounded-full">
+                                <img src="{{ asset($user->photo()) }}" class="w-8 h-8 rounded-full">
                             </a>
                             <div>
                                 <h1 class="ml-2 text-gray-800 font-semibold no-underline hover:underline">
@@ -27,9 +27,7 @@
                         <Follow :user="{{ $user }}" follow_Status="{{ Auth::user()->isFollowing($user) }}" :notifications="{{ Auth::user()->notifications }}"/>
                     </div>
                 @endunless
-            @empty
-                <h1 class="text-gray-600 text-center mt-8 font-bold">No Users Found</h1>
-            @endforelse
+            @endforeach
         </div>
     </div>
 

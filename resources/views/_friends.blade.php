@@ -4,7 +4,7 @@
        @foreach (Auth::user()->following as $user)
             <a href="{{ route('profile',$user->id) }}">
                 <li class="flex items-center my-3 px-4 py-1 hover:bg-white rounded-r-full rounded-l-full transition-all duration-200 ease-out motion-reduce:transition-none cursor-pointer">
-                    <img src="{{$user->photo()}}" class="w-8 h-8 rounded-full">
+                    <img src="{{ asset($user->photo()) }}" class="w-8 h-8 rounded-full">
                     <h1 class="ml-2">{{ Str::limit($user->fName.' '.$user->lName,12) }}</h1>
                 </li>
             </a>

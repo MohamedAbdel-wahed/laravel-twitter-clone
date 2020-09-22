@@ -5,7 +5,7 @@
         <tweet-images></tweet-images>
         <div class="mt-3 flex justify-between items-center">
             <a href="{{ route('profile',Auth::user()->id) }}">
-                <img src="{{ Auth::user()->photo() }}" class="w-8 h-8 my-1 mx-6 rounded-full select-none">
+                <img src="{{ asset(Auth::user()->photo()) }}" class="w-8 h-8 my-1 mx-6 rounded-full select-none">
             </a>
             <button class="my-1 mx-6 px-4 py-2 bg-blue-600 text-sm font-semibold text-white hover:text-blue-200 focus:bg-blue-800 focus:outline-none rounded-lg">tweet it<b>!</b></button>
         </div>

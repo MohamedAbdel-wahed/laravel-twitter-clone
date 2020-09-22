@@ -8,9 +8,9 @@
     </div>
      <div class="flex-1 mt-20 mx-6 px-4 rounded-lg">
         <div class="w-full h-72">
-            <img src="{{ $user->profileImg ? '/storage/'.$user->profileImg : '/images/default-profile.jpg'}}" class="w-full h-full rounded-lg select-none"> 
+            <img src="{{ $user->profileImg ? asset('/uploads/profile/'.$user->profileImg) : '/images/default-profile.jpg'}}" class="w-full h-full rounded-lg select-none"> 
             <div class="absolute select-none">
-                <img src="{{$user->photo()}}" class="transform -translate-y-20 translate-x-10 w-7/12 h-40 rounded-full"> 
+                <img src="{{ asset($user->photo()) }}" class="transform -translate-y-20 translate-x-10 w-40 h-40 rounded-full"> 
             </div>
             <div class="relative ml-56 mt-4">
                 <div class="w-1/2 inline-block select-none">
@@ -26,7 +26,7 @@
                             @forelse ($user->followers() as $follower)
                                 <div class="flex items-center my-1 px-4 py-2 {{ $loop->last?'':'border-b' }} border-gray-200">
                                     <a href="{{ route('profile',$follower->id) }}" title="view profile">
-                                        <img src="{{ $follower->photo ? '/storage/'.$follower->photo : '/images/default.png' }}" class="w-8 h-8 rounded-full">
+                                        <img src="{{ $follower->photo ? asset('/uploads/personal/'.$follower->photo) : '/images/default.png' }}" class="w-8 h-8 rounded-full">
                                     </a>
                                     <div>
                                         <h1 class="ml-2 text-gray-800 text-sm font-semibold no-underline hover:underline">

@@ -1,7 +1,7 @@
   
  <div class="select-none h-110 fixed overflow-auto">
      <div class="flex items-center mx-10 mb-1">
-        <img src="{{ Auth::user()->photo() }}" class="w-10 h-10 rounded-full">
+        <img src="{{ asset(Auth::user()->photo()) }}" class="w-10 h-10 rounded-full">
         <h1 class="font-semibold ml-2">{{ Auth::user()->fName }}</h1>
      </div>
     <ul class="h-100 font-bold text-gray-900 px-12 py-2 bg-gray-200 rounded-lg ">

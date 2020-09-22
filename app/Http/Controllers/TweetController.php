@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Notifications\LikeNotification;
 use App\Tweet;
+use Illuminate\Support\Facades\Storage;
+use League\Flysystem\File;
 
 
 class TweetController extends Controller
@@ -44,6 +46,7 @@ class TweetController extends Controller
                     $imgPath=uniqid('tweet.',true).'.'.strtolower(end($ext));
                     array_push($tweet_images,$imgPath);
                     move_uploaded_file($tmp_name, public_path('uploads/tweets/'.$imgPath));
+                    // Storage::putFile('photos', new File('/path/to/photo'));
                 }
         }
 
